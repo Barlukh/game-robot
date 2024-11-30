@@ -1,9 +1,9 @@
 ## Introduction
 2D game written with the help of Pygame library. It is a simple collection game, where a player controls a robot and tries to collect coins.
-If he collides with a monster, the game ends. This is a final submission for the Advanced Python course in the MOOC 2024 teaching series.
+If the player collides with a monster, the game ends. This is a final submission for the Advanced Python course in the MOOC 2024 teaching series.
 
 ## Functionality
-- The player controls a robot and is being chased by a monster. Player collects coins and the score increases.
+- The player controls a robot and is being chased by a monster. Score increases based on the coins collected.
 - If the monster touches the player, the game is over and the player can restart the game.
 - There is no winning condition, only collecting more coins.
 - Operate the game with arrow keys. Spacebar starts a new game.
