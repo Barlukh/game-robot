@@ -6,8 +6,8 @@ import random
 pygame.init()
 
 window = pygame.display.set_mode((640, 480))
-clock = pygame.time.Clock()
 pygame.display.set_caption("Robot!")
+clock = pygame.time.Clock()
 
 class Coins:
     """ Class for coins collected. """
