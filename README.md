@@ -1,4 +1,4 @@
-
+![screenshot](screenshot.png)
 
 ## Introduction
 2D game written with the help of Pygame library. It is a simple collection game, where a player controls a robot and tries to collect coins.
