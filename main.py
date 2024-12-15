@@ -1,4 +1,4 @@
-""" Main execution module of the game. """
+""" Main module of the game. Function game_start() starts the game. """
 
 import pygame
 import random
@@ -21,10 +21,10 @@ class Entity:
         self.rect = rect
 
 coins = Coins(0)    
-robot = Entity(pygame.image.load("robot.png"), pygame.image.load("robot.png").get_rect(center = (640 / 2, 440 / 2)))
-coin = Entity(pygame.image.load("coin.png"), pygame.image.load("coin.png").get_rect(center = (random.randint(25, 615), random.randint(25, 415))))
+robot = Entity(pygame.image.load("graphics/robot.png"), pygame.image.load("graphics/robot.png").get_rect(center = (640 / 2, 440 / 2)))
+coin = Entity(pygame.image.load("graphics/coin.png"), pygame.image.load("graphics/coin.png").get_rect(center = (random.randint(25, 615), random.randint(25, 415))))
 monster_spawns = [(25, 35), (615, 35), (25, 405), (615, 405)]
-monster = Entity(pygame.image.load("monster.png"), pygame.image.load("monster.png").get_rect(center = monster_spawns[random.randint(0, 3)]))
+monster = Entity(pygame.image.load("graphics/monster.png"), pygame.image.load("graphics/monster.png").get_rect(center = monster_spawns[random.randint(0, 3)]))
 
 def draw_entities():
     """ Draw all entities. """
@@ -139,16 +139,16 @@ def check_events():
         pygame.display.flip()
 
 def game_over():
-    """ Draw game over window when monster_collision True. """
+    """ Draw 'game over' window when monster_collision True. """
     window.fill((50, 50, 50))
     pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
-    info = f'Coins collected: {coins.amount}{" " * 26}Press Space to play again'
+    info = f'Coins collected: {coins.amount}{" " * 22}Press Space to play again'
     game_font = pygame.font.SysFont("Arial", 23)
     text = game_font.render(info, True, (255, 255, 0))
     window.blit(text, (20, 446))
     
 def game_start():
-    """ Draw a welcome window with info for the player. """
+    """ Draw 'welcome' window with info for the player. """
     window.fill((50, 50, 50))
     pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
     info = f"Coins collected: {coins.amount}{" " * 6}Arrow keys: move{" " * 6}Space: continue"
