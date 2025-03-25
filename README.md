@@ -1,4 +1,8 @@
-![screenshot](screenshot.png)
+# Robot
+
+<p align="center">
+    <img width="600" src="screenshot.png" alt="screenshot">
+</p>
 
 ## Introduction
 2D game written with the help of Pygame library. It is a simple collection game, where a player controls a robot and tries to collect coins.
