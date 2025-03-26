@@ -1,4 +1,11 @@
-""" Main module of the game. Function game_start() starts the game. """
+"""
+Project Title: Robot
+Filename: main.py
+
+Description:
+    2D game written with Pygame. Player controls a Robot and collects coins trying to avoid the monster.
+    Requirements: Python and Pygame.
+"""
 
 import pygame
 import random
