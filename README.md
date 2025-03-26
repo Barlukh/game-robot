@@ -17,6 +17,6 @@ If the player collides with a monster, the game ends. This is a final submission
 - Collision is detected based on the drawn rectangle for the given image.
 
 ## Installation
-- Ensure Python is installed on your system.<br>
-- Use pip to install all required packages listed in requirements.txt (pip install -r requirements.txt).<br>
+- Ensure Python is installed on your system.
+- Use pip to install all required packages listed in requirements.txt (pip install -r requirements.txt).
 - Execute the main script to run the program (python main.py).
