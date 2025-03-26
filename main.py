@@ -4,6 +4,7 @@ Filename: main.py
 
 Description:
     2D game written with Pygame. Player controls a Robot and collects coins trying to avoid the monster.
+    Collision is detected with rectangles, no Sprite classes were used in this project. Use arrow keys to move.
     Requirements: Python and Pygame.
 """
 
@@ -33,52 +34,28 @@ coin = Entity(pygame.image.load("graphics/coin.png"), pygame.image.load("graphic
 monster_spawns = [(25, 35), (615, 35), (25, 405), (615, 405)]
 monster = Entity(pygame.image.load("graphics/monster.png"), pygame.image.load("graphics/monster.png").get_rect(center = monster_spawns[random.randint(0, 3)]))
 
-def draw_entities():
-    """ Draw all entities. """
-    window.blit(robot.image, robot.rect)
-    window.blit(coin.image, coin.rect)
-    window.blit(monster.image, monster.rect)
+def main():
+    game_start()
 
-def draw_score():
-    """ Draw collected coins score. """
-    pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
-    game_font = pygame.font.SysFont("Arial", 23)
-    text = f"Coins collected: {coins.amount}"
-    text = game_font.render(text, True, (255, 255, 0))
-    window.blit(text, (20, 446))
-
-def draw_window():
-    """ Draw the window of the game. """
+def game_start():
+    """ Draw 'welcome' window with info for the player. """
     window.fill((50, 50, 50))
-    draw_score()
-    draw_entities()
-
-def monster_collision():
-    """ Check for monster collision, return True if detected. """
-    if robot.rect.colliderect(monster.rect):
-        return False
-    else:
-        return True
-
-def monster_chase():
-    """ Set monster chasing behaviour. """
-    if monster.rect.center[0] > robot.rect.center[0]:
-        monster.rect.center = (monster.rect.center[0] - 1, monster.rect.center[1])
-    if monster.rect.center[0] < robot.rect.center[0]:
-        monster.rect.center = (monster.rect.center[0] + 1, monster.rect.center[1])
-    if monster.rect.center[1] > robot.rect.center[1]:
-        monster.rect.center = (monster.rect.center[0], monster.rect.center[1] - 1)
-    if monster.rect.center[1] < robot.rect.center[1]:
-        monster.rect.center = (monster.rect.center[0], monster.rect.center[1] + 1)
-
-def coin_collision():
-    """ Check for coin collision, add amount if deteced. """
-    if robot.rect.colliderect(coin.rect):
-        coin.rect.center = (random.randint(25, 615), random.randint(25, 415))
-        coins.amount += 1
+    pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
+    info = f"Coins collected: {coins.amount}{" " * 6}Arrow keys: move{" " * 6}Space: continue"
+    game_font = pygame.font.SysFont("Arial", 23)
+    text = game_font.render(info, True, (255, 255, 0))
+    window.blit(text, (20, 446))
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    check_events()
 
 def check_events():
-    """ Main loop. Check for events, set clock, control game state. """
+    """ Core loop. Check for events, set clock, control game state. """
     to_up = False
     to_down = False
     to_right = False
@@ -145,6 +122,50 @@ def check_events():
         clock.tick(60)
         pygame.display.flip()
 
+def coin_collision():
+    """ Check for coin collision, add amount if deteced. """
+    if robot.rect.colliderect(coin.rect):
+        coin.rect.center = (random.randint(25, 615), random.randint(25, 415))
+        coins.amount += 1
+
+def monster_chase():
+    """ Set monster chasing behaviour. """
+    if monster.rect.center[0] > robot.rect.center[0]:
+        monster.rect.center = (monster.rect.center[0] - 1, monster.rect.center[1])
+    if monster.rect.center[0] < robot.rect.center[0]:
+        monster.rect.center = (monster.rect.center[0] + 1, monster.rect.center[1])
+    if monster.rect.center[1] > robot.rect.center[1]:
+        monster.rect.center = (monster.rect.center[0], monster.rect.center[1] - 1)
+    if monster.rect.center[1] < robot.rect.center[1]:
+        monster.rect.center = (monster.rect.center[0], monster.rect.center[1] + 1)
+
+def monster_collision():
+    """ Check for monster collision, return True if detected. """
+    if robot.rect.colliderect(monster.rect):
+        return False
+    else:
+        return True
+
+def draw_window():
+    """ Draw the window of the game. """
+    window.fill((50, 50, 50))
+    draw_score()
+    draw_entities()
+
+def draw_score():
+    """ Draw collected coins score. """
+    pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
+    game_font = pygame.font.SysFont("Arial", 23)
+    text = f"Coins collected: {coins.amount}"
+    text = game_font.render(text, True, (255, 255, 0))
+    window.blit(text, (20, 446))
+
+def draw_entities():
+    """ Draw all entities. """
+    window.blit(robot.image, robot.rect)
+    window.blit(coin.image, coin.rect)
+    window.blit(monster.image, monster.rect)
+
 def game_over():
     """ Draw 'game over' window when monster_collision True. """
     window.fill((50, 50, 50))
@@ -153,22 +174,6 @@ def game_over():
     game_font = pygame.font.SysFont("Arial", 23)
     text = game_font.render(info, True, (255, 255, 0))
     window.blit(text, (20, 446))
-    
-def game_start():
-    """ Draw 'welcome' window with info for the player. """
-    window.fill((50, 50, 50))
-    pygame.draw.rect(window, (0, 0, 0), (0, 440, 640, 480))
-    info = f"Coins collected: {coins.amount}{" " * 6}Arrow keys: move{" " * 6}Space: continue"
-    game_font = pygame.font.SysFont("Arial", 23)
-    text = game_font.render(info, True, (255, 255, 0))
-    window.blit(text, (20, 446))
-    pygame.display.flip()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    check_events()
 
-game_start()
+if __name__ == "__main__":
+    main()
